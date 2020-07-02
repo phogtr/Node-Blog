@@ -1,0 +1,36 @@
+body {
+  font-size: 1.2rem;
+}
+
+.container-fluid {
+  background-color: rgb(206, 235, 235);
+}
+
+[class*="col-"] {
+  height: 4.2rem;
+  border: 2px solid orange;
+}
+
+.card {
+  margin: 1rem 0;
+}
+
+.login-line {
+  padding-bottom: 1rem;
+}
+
+.forgot-pw {
+  padding: 1rem;
+}
+
+.no-acc {
+  text-align: end;
+}
+
+.btn-lg {
+  margin: 1rem 0;
+}
+
+form.post {
+  display: inline-block;
+}

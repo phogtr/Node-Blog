@@ -1,0 +1,23 @@
+<h1><%= posts.title %></h1>
+<p><%= posts.date.toISOString().split('T')[0] %></p>
+<div>
+  <p><%= posts.content %></p>
+</div>
+<div>
+  <img src="<%= posts.imageSrc %>" alt="" />
+</div>
+<div>
+  <%= posts.author %>
+</div>
+<form class="post" action="<%= `edit/${posts._id}` %>" method="GET">
+  <button type="submit" class="btn btn-outline-info btn-lg">
+    Edit
+  </button>
+</form>
+<form class="post" id="delete-post">
+  <button type="submit" class="btn btn-outline-info btn-lg" data-id="<%= posts._id %> ">
+    Delete
+  </button>
+</form>
+
+<script src="/js/delete.js"></script>

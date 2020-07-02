@@ -1,1 +1,30 @@
-Middle
+<div>
+  <ul>
+    <li>
+      <a href="/post/new">New Posts</a>
+    </li>
+    <h1>Posts</h1>
+    <% posts.forEach(post => { %>
+    <ul>
+      <li>
+        <div>
+          <h2>
+            <a href="<%= `/post/${post._id}` %> "> <%= post.title %> </a>
+          </h2>
+          <div>
+            <p>
+              <%= post.content %>
+            </p>
+          </div>
+          <div>
+            <img src="<%= post.imageSrc %>" alt="" />
+          </div>
+          <div>
+            <%= post.author %>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <% }); %>
+  </ul>
+</div>
