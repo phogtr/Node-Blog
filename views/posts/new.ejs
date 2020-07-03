@@ -1,13 +1,9 @@
-<h1>New Post</h1>
 <%- include("../partials/messages.ejs") %>
+<h1>New Post</h1>
 <form action="new" method="POST" enctype="multipart/form-data">
   <div>
     <label for="title">Title</label>
     <input type="text" id="title" name="title" />
-  </div>
-  <div>
-    <label for="author">Author</label>
-    <input type="text" id="author" name="author" />
   </div>
   <div>
     <label for="content">Content</label>
@@ -18,6 +14,7 @@
     <input type="file" id="image" name="image" />
   </div>
   <div>
+    <a href="/" class="btn btn-outline-info btn-lg"> Cancel</a>
     <button type="submit" class="btn btn-outline-info btn-lg">
       Submit
     </button>

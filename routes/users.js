@@ -6,7 +6,6 @@ const { authenticated } = require("../config/auth");
 
 // User model
 const User = require("../models/User.js");
-//const { route } = require("./index.js");
 
 //login
 router.get("/login", (req, res) => {
@@ -42,6 +41,7 @@ router.post("/register", (req, res) => {
       email,
       password,
       password2,
+      user: null,
     });
   } else {
     User.findOne({ email: email }).then((user) => {
@@ -53,6 +53,7 @@ router.post("/register", (req, res) => {
           email,
           password,
           password2,
+          user: null,
         });
       } else {
         const newUser = new User({

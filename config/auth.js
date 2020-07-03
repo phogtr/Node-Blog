@@ -4,6 +4,6 @@ module.exports = {
       return next();
     }
     req.flash("error_msg", "You are not logged in");
-    res.redirect("/users/login");
+    res.redirect("/user/login");
   },
 };

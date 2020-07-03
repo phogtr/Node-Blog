@@ -56,6 +56,12 @@ app.use(passport.session());
 // Connect Flash
 app.use(flash());
 
+// Global user when login
+app.get("*", (req, res, next) => {
+  res.locals.user = req.user || null;
+  next();
+});
+
 // Global vars
 app.use((req, res, next) => {
   res.locals.success_msg = req.flash("success_msg");

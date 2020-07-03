@@ -4,8 +4,10 @@ const path = require("path");
 const fs = require("fs");
 const multer = require("multer");
 const imageType = ["image/jpeg", "image/png", "image/gif"];
+const { authenticated } = require("../config/auth");
 
-// Post model
+// Post & User model
+const User = require("../models/User.js");
 const Post = require("../models/Post.js");
 const upload = multer({
   dest: path.join("public", Post.imagePath),
@@ -15,17 +17,17 @@ const upload = multer({
 });
 
 // new post
-router.get("/new", (req, res) => {
+router.get("/new", authenticated, (req, res) => {
   res.render("posts/new");
 });
 
 // new post handler
 router.post("/new", upload.single("image"), (req, res) => {
   const fileName = req.file != null ? req.file.filename : null;
-  const { title, content, image, author } = req.body;
+  const { title, content, image } = req.body;
   let errors = [];
 
-  if (!title || !author) {
+  if (!title) {
     errors.push({ msg: "Please fill in the title" });
   }
 
@@ -44,19 +46,20 @@ router.post("/new", upload.single("image"), (req, res) => {
       title,
       content,
       image,
-      author,
+      user: req.user._id,
     });
   } else {
     const newPost = new Post({
       title,
       content,
       image: fileName,
-      author,
+      author: req.user._id,
     });
 
     newPost
       .save()
       .then(() => {
+        req.flash("success_msg", "New post has been added");
         res.redirect("/");
       })
       .catch((err) => console.log(err));
@@ -67,19 +70,28 @@ router.post("/new", upload.single("image"), (req, res) => {
 router.get("/:id", (req, res) => {
   Post.findById(req.params.id, (err, posts) => {
     if (err) throw err;
-    res.render("posts/post", {
-      posts: posts,
+    User.findById(posts.author, (err, users) => {
+      if (err) throw err;
+      res.render("posts/post", {
+        posts: posts,
+        author: users.name,
+      });
     });
   });
 });
 
 // edit post
-router.get("/edit/:id", (req, res) => {
+router.get("/edit/:id", authenticated, (req, res) => {
   Post.findById(req.params.id, (err, posts) => {
     if (err) throw err;
-    res.render("posts/edit", {
-      posts: posts,
-    });
+    if (posts.author != req.user._id) {
+      req.flash("error_msg", "Not Authorized");
+      res.redirect("/");
+    } else {
+      res.render("posts/edit", {
+        posts: posts,
+      });
+    }
   });
 });
 
@@ -89,7 +101,7 @@ router.post("/edit/:id", upload.single("image"), (req, res) => {
   const { title, content, image, author } = req.body;
   let errors = [];
 
-  if (!title || !author) {
+  if (!title) {
     errors.push({ msg: "Please fill in the title" });
   }
 
@@ -110,28 +122,45 @@ router.post("/edit/:id", upload.single("image"), (req, res) => {
         title,
         content,
         image,
-        author,
         posts: posts,
+        user: req.user._id,
       });
     });
   } else {
+    Post.findById(req.params.id, (err, posts) => {
+      if (err) throw err;
+      fs.unlink(path.join("public", Post.imagePath, posts.image), (err) => {
+        if (err) throw err;
+      });
+    });
+
     var post = {};
     post.title = title;
     post.content = content;
     post.image = fileName;
-    post.author = author;
+    post.author = req.user._id;
 
     Post.updateOne({ _id: req.params.id }, post, (err) => {
       if (err) throw err;
+      req.flash("success_msg", "Your post has been updated");
       res.redirect("/");
     });
   }
 });
 
-// delete post
+// delete post handler
 router.delete("/:id", (req, res) => {
+  if (!req.user._id) res.status(500).send();
+
+  Post.findById(req.params.id, (err, posts) => {
+    if (err) throw err;
+    fs.unlink(path.join("public", Post.imagePath, posts.image), (err) => {
+      if (err) throw err;
+    });
+  });
   Post.deleteOne({ _id: req.params.id }, (err) => {
     if (err) throw err;
+    req.flash("success_msg", "Your post has been deleted");
     res.send("Post deleted successfully");
   });
 });
