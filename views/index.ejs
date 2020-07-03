@@ -1,13 +1,14 @@
 <%- include("partials/messages.ejs") %>
 <div>
   <h1>Posts</h1>
-  <% posts.forEach(post => { %> <% users.forEach(u => { %> <% if (post.author == u._id) { %>
+  <% posts.sort((a, b) => b.date - a.date) %> <% posts.forEach(post => { %>
   <ul>
     <li>
       <div>
         <h2>
           <a href="<%= `/post/${post._id}` %> "> <%= post.title %> </a>
         </h2>
+        <p><%= post.date.toISOString().split('T')[0] %></p>
         <div>
           <p>
             <%= post.content %>
@@ -17,10 +18,11 @@
           <img src="<%= post.imageSrc %>" alt="" />
         </div>
         <div>
-          <%= u.name %>
+          <% users.forEach(u => { %> <% if (post.author == u._id) { %> <%= u.name %> <% } %> <% });
+          %>
         </div>
       </div>
     </li>
   </ul>
-  <% } %> <% }); %> <% }); %>
+  <% }); %>
 </div>

@@ -6,6 +6,7 @@ const { authenticated } = require("../config/auth");
 
 // User model
 const User = require("../models/User.js");
+const Post = require("../models/Post.js");
 
 //login
 router.get("/login", (req, res) => {
@@ -84,7 +85,7 @@ router.post("/register", (req, res) => {
 // login handler
 router.post("/login", (req, res, next) => {
   passport.authenticate("local", {
-    successRedirect: "/user/dashboard",
+    successRedirect: "/",
     failureRedirect: "/user/login",
     failureFlash: true,
   })(req, res, next);
@@ -97,9 +98,14 @@ router.get("/logout", (req, res) => {
   res.redirect("login");
 });
 
+// dashboard
 router.get("/dashboard", authenticated, (req, res) => {
-  res.render("users/dashboard", {
-    name: req.user.name,
+  Post.find({}, (err, posts) => {
+    if (err) throw err;
+    res.render("users/dashboard", {
+      posts: posts,
+      users: req.user,
+    });
   });
 });
 

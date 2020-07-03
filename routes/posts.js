@@ -139,6 +139,7 @@ router.post("/edit/:id", upload.single("image"), (req, res) => {
     post.content = content;
     post.image = fileName;
     post.author = req.user._id;
+    post.date = Date.now();
 
     Post.updateOne({ _id: req.params.id }, post, (err) => {
       if (err) throw err;
