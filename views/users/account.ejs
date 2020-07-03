@@ -1,0 +1,30 @@
+<h1>name</h1>
+<div>
+    <p>email</p>
+</div>
+<div>
+    Account Info
+</div>
+<form action="account" method="POST"">
+    <div>
+        <label for="name">Name</label>
+        <input 
+        type="name" 
+        id="name" 
+        name="name" 
+        value="<%= users.name %>"
+        >
+    </div>
+    <div>
+        <label for="email" class="login-input">Email address</label>
+        <input
+        type="email"
+        id="email"
+        name="email"
+        value="<%= users.email %>"
+        >
+    </div>
+    <button type="submit" class="btn btn-outline-info btn-lg">
+        Update
+    </button>
+</form>

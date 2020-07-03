@@ -109,4 +109,11 @@ router.get("/dashboard", authenticated, (req, res) => {
   });
 });
 
+// account
+router.get("/account", authenticated, (req, res) => {
+  res.render("users/account", {
+    users: req.user,
+  });
+});
+
 module.exports = router;
