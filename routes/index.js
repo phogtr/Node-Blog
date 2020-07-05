@@ -5,13 +5,18 @@ const User = require("../models/User.js");
 const Post = require("../models/Post.js");
 
 router.get("/", (req, res) => {
-  Post.find({}, (err, posts) => {
+  let search = {};
+  if (req.query.title != null && req.query.title !== "") {
+    search.title = new RegExp(req.query.title, "i");
+  }
+  Post.find(search, (err, posts) => {
     if (err) throw err;
     User.find({}, (err, users) => {
       if (err) throw err;
       res.render("index", {
         posts: posts,
         users: users,
+        search: req.query,
       });
     });
   });

@@ -1,5 +1,9 @@
 <h1>Hello World</h1>
 <p>Welcome <%= users.name %></p>
+<form action="dashboard" method="GET">
+  <input type="text" name="title" placeholder="Search post..." value="<%= search.title %>" />
+  <button type="submit">Search</button>
+</form>
 <% posts.sort((a, b) => b.date - a.date) %> <% posts.forEach(post => { %> <% if (post.author ==
 users._id) { %>
 <ul>

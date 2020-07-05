@@ -100,11 +100,17 @@ router.get("/logout", (req, res) => {
 
 // dashboard
 router.get("/dashboard", authenticated, (req, res) => {
-  Post.find({}, (err, posts) => {
+  let search = {};
+  if (req.query.title != null && req.query.title !== "") {
+    search.title = new RegExp(req.query.title, "i");
+  }
+
+  Post.find(search, (err, posts) => {
     if (err) throw err;
     res.render("users/dashboard", {
       posts: posts,
       users: req.user,
+      search: req.query,
     });
   });
 });
