@@ -109,10 +109,39 @@ router.get("/dashboard", authenticated, (req, res) => {
   });
 });
 
-// account
-router.get("/account", authenticated, (req, res) => {
-  res.render("users/account", {
-    users: req.user,
+// profile
+router.get("/profile", authenticated, (req, res) => {
+  res.render("users/profile", {
+    user: req.user,
+  });
+});
+
+// profile handler
+router.post("/profile", (req, res) => {
+  const { name, email } = req.body;
+  let errors = [];
+
+  User.findOne({ email: email }).then((user) => {
+    if (user && user.email != req.user.email) {
+      errors.push({ msg: "Email is already registered" });
+      res.render("users/profile", {
+        errors,
+        name,
+        email,
+        user: req.user,
+      });
+    } else {
+      var user = {};
+      user.name = name;
+      user.email = email;
+      user.date = Date.now();
+
+      User.updateOne({ _id: req.user._id }, user, (err) => {
+        if (err) throw err;
+        req.flash("success_msg", "Your profile has been updated");
+        res.redirect("/");
+      });
+    }
   });
 });
 

@@ -1,18 +1,19 @@
-<h1>name</h1>
+<%- include("../partials/messages.ejs") %>
+<h1><%= user.name %></h1>
 <div>
-    <p>email</p>
+    <p><%= user.email %></p>
 </div>
 <div>
-    Account Info
+    Profile Info
 </div>
-<form action="account" method="POST"">
+<form action="profile" method="POST"">
     <div>
         <label for="name">Name</label>
         <input 
         type="name" 
         id="name" 
         name="name" 
-        value="<%= users.name %>"
+        value="<%= user.name %>"
         >
     </div>
     <div>
@@ -21,7 +22,7 @@
         type="email"
         id="email"
         name="email"
-        value="<%= users.email %>"
+        value="<%= user.email %>"
         >
     </div>
     <button type="submit" class="btn btn-outline-info btn-lg">
