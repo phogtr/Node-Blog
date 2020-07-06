@@ -1,11 +1,39 @@
 <%- include("partials/messages.ejs") %>
 <form action="/" method="GET">
-  <input type="text" name="title" placeholder="Search post..." value="<%= search.title %>" />
-  <button type="submit">Search</button>
+  <select name="selectSearch" id="selectSearch">
+    <option value="title">Title</option>
+    <option value="author">Author</option>
+  </select>
+  <input type="text" name="search" placeholder="Search post..." />
+  <button type="submit">
+    <i class="fa fa-search" aria-hidden="true"></i>
+  </button>
 </form>
+<a href="" id="advSearch">
+  Advance Search
+  <i class="fa fa-search-plus" aria-hidden="true"></i>
+</a>
+<div id="searchForm" style="display: none;">
+  <h1>Advance Search</h1>
+  <form action="/advanceSearch" method="GET">
+    <div>
+      <label for="title">Title</label>
+      <input type="text" name="title" id="title" />
+    </div>
+    <div>
+      <label for="author">Author</label>
+      <input type="text" name="author" id="author" />
+    </div>
+    <button type="submit" class="btn btn-outline-info btn-lg">
+      Search
+    </button>
+  </form>
+</div>
+
 <div>
   <h1>Posts</h1>
-  <% posts.sort((a, b) => b.date - a.date) %> <% posts.forEach(post => { %>
+  <% posts.sort((a, b) => b.date - a.date) %> <% posts.forEach(post => { %> <% users.forEach(u => {
+  %> <% if (post.author == u._id) { %>
   <ul>
     <li>
       <div>
@@ -22,11 +50,22 @@
           <img src="<%= post.imageSrc %>" alt="" />
         </div>
         <div>
-          <% users.forEach(u => { %> <% if (post.author == u._id) { %> <%= u.name %> <% } %> <% });
-          %>
+          <%= u.name %>
         </div>
       </div>
     </li>
   </ul>
-  <% }); %>
+  <% } %> <% }); %><% }); %>
 </div>
+
+<script type="text/javascript">
+  document.getElementById("advSearch").addEventListener("click", (e) => {
+    e.preventDefault();
+    var result = document.getElementById("searchForm").style;
+    if (result.display == "none") {
+      result.display = "block";
+    } else if (result.display == "block") {
+      result.display = "none";
+    }
+  });
+</script>

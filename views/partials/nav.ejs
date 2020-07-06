@@ -9,10 +9,15 @@
       </ul>
       <ul class="nav justify-content-end">
         <% if (user) { %>
-        <a class="nav-item nav-link" href="/post/new">New Post</a>
-        <a class="nav-item nav-link" href="/user/dashboard">Dashboard</a>
-        <a class="nav-item nav-link" href="/user/profile">Profile</a>
-        <a class="nav-item nav-link" href="/user/logout">Logout</a>
+        <a id="boxDropDown">
+          <span><%= user.name %> </span>
+        </a>
+        <div id="menuBox" style="display: none;">
+          <a href="/post/new">New Post</a>
+          <a href="/user/dashboard">Dashboard</a>
+          <a href="/user/profile">Profile</a>
+          <a href="/user/logout">Logout</a>
+        </div>
         <% } else { %>
         <a class="nav-item nav-link" href="/user/login">Login</a>
         <a class="nav-item nav-link" href="/user/register">Register</a>
@@ -22,3 +27,15 @@
   </div>
   <div class="col-sm"></div>
 </div>
+
+<script type="text/javascript">
+  document.getElementById("boxDropDown").addEventListener("mouseover", (e) => {
+    e.preventDefault();
+    document.getElementById("menuBox").style.display = "block";
+  });
+
+  document.getElementById("menuBox").addEventListener("mouseleave", (e) => {
+    e.preventDefault();
+    document.getElementById("menuBox").style.display = "none";
+  });
+</script>
