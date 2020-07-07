@@ -16,17 +16,39 @@ i {
   margin: 3px;
 }
 
-/* nav */
+/* button */
 
-nav {
+.btn:focus {
+  box-shadow: none;
+}
+
+.btn-link:hover,
+.btn-link:focus {
+  text-decoration: none;
+}
+
+.quick-search:hover {
+  background-color: #ffbb00;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.btn-lg {
+  margin: 1rem 0;
+}
+
+/* nav */
+nav,
+.card-header {
   background-color: rgb(78, 88, 98);
 }
 
-.nav-link {
+.nav-link,
+.btn-link {
   color: #ffbb00;
 }
 
-.nav-link:hover {
+.nav-link:hover,
+.btn-link:hover {
   color: rgb(253, 255, 255);
 }
 
@@ -48,28 +70,27 @@ a.dropdown-toggle:hover {
   color: rgb(253, 255, 255);
 }
 
-span.userName {
+span.username {
   color: #ffbb00;
 }
 
+/* card for post/form */
 .card {
   margin: 1rem 0;
 }
+
+.by-user {
+  float: right;
+}
+
+/* login */
 
 .login-line {
   padding-bottom: 1rem;
 }
 
-.forgot-pw {
+.redr-link {
   padding: 1rem;
-}
-
-.no-acc {
-  text-align: end;
-}
-
-.btn-lg {
-  margin: 1rem 0;
 }
 
 form.single-post {

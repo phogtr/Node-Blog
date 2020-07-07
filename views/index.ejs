@@ -1,59 +1,70 @@
 <%- include("partials/messages.ejs") %>
-<a href="" id="advSearch">
-  Advance Search
-  <i class="fa fa-search-plus" aria-hidden="true"></i>
-</a>
-<div id="searchForm" style="display: none;">
-  <h1>Advance Search</h1>
-  <form action="/advanceSearch" method="GET">
-    <div>
-      <label for="title">Title</label>
-      <input type="text" name="title" id="title" />
-    </div>
-    <div>
-      <label for="author">Author</label>
-      <input type="text" name="author" id="author" />
-    </div>
-    <button type="submit" class="btn btn-outline-info btn-lg">
-      Search
-    </button>
-  </form>
-</div>
-
-<h1>Posts</h1>
 <% posts.sort((a, b) => b.date - a.date) %> <% posts.forEach(post => { %> <% users.forEach(u => { %>
 <% if (post.author == u._id) { %>
-<ul>
-  <li>
+<div class="card">
+  <div class="card-header">
+    <a href="<%= `/post/${post._id}` %> "> <%= post.title %> </a>
+  </div>
+  <div class="card-body">
     <div>
-      <h2>
-        <a href="<%= `/post/${post._id}` %> "> <%= post.title %> </a>
-      </h2>
-      <p><%= post.date.toISOString().split('T')[0] %></p>
-      <div>
-        <p>
-          <%= post.content %>
-        </p>
-      </div>
-      <div>
-        <img src="<%= post.imageSrc %>" alt="" />
-      </div>
-      <div>
-        <%= u.name %>
-      </div>
+      <%= post.content %>
     </div>
-  </li>
-</ul>
+    <div>
+      <img src="<%= post.imageSrc %>" class="img-fluid shadow-sm p-3 mb-3 mt-3 bg-white rounded" />
+    </div>
+  </div>
+  <div class="card-footer text-muted">
+    <span
+      ><i class="fa fa-clock-o" aria-hidden="true"></i> <%= post.date.toISOString().split('T')[0] %>
+    </span>
+    <span class="by-user"
+      ><i class="fa fa-user-o" aria-hidden="true"></i> <%= u.name.charAt(0).toUpperCase() +
+      u.name.slice(1) %></span
+    >
+  </div>
+</div>
 <% } %> <% }); %><% }); %>
 
-<script type="text/javascript">
-  document.getElementById("advSearch").addEventListener("click", (e) => {
-    e.preventDefault();
-    var result = document.getElementById("searchForm").style;
-    if (result.display == "none") {
-      result.display = "block";
-    } else if (result.display == "block") {
-      result.display = "none";
-    }
-  });
-</script>
+</div>
+<div class="col-lg-4">
+  <div class="accordion" id="accordionSearch">
+    <div class="card">
+      <div class="card-header">
+        <div class="mb-0">
+          <button 
+          class="btn btn-link text-left" 
+          type="button" 
+          data-toggle="collapse" 
+          data-target="#collapseSearch" 
+          aria-expanded="false" 
+          aria-controls="collapseSearch">
+          Advance Search
+          <i class="fa fa-search-plus" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+
+      <div id="collapseSearch" class="collapse" data-parent="#accordionSearch">
+        <div class="card-body">
+          <div>
+            <h3>Advance Search</h3>
+            <form action="/advanceSearch" method="GET">
+              <div>
+                <label for="title">Title</label>
+                <input type="text" name="title" id="title" />
+              </div>
+              <div>
+                <label for="author">Author</label>
+                <input type="text" name="author" id="author" />
+              </div>
+              <button type="submit" class="btn btn-outline-info btn-lg">
+                Search
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
