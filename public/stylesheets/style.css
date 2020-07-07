@@ -1,14 +1,55 @@
 body {
-  font-size: 1.2rem;
+  font-family: Georgia, Times New Roman, Times, serif;
+  font-size: 20px;
 }
 
-.container-fluid {
+.container {
   background-color: rgb(206, 235, 235);
 }
 
 [class*="col-"] {
   height: 4.2rem;
   border: 2px solid orange;
+}
+
+i {
+  margin: 3px;
+}
+
+/* nav */
+
+nav {
+  background-color: rgb(78, 88, 98);
+}
+
+.nav-link {
+  color: #ffbb00;
+}
+
+.nav-link:hover {
+  color: rgb(253, 255, 255);
+}
+
+.form-control {
+  margin-right: 5px;
+}
+
+.dropdown {
+  margin-left: 15px;
+  margin-top: 5px;
+}
+
+a.dropdown-toggle {
+  color: #ffbb00;
+  text-decoration: none;
+}
+
+a.dropdown-toggle:hover {
+  color: rgb(253, 255, 255);
+}
+
+span.userName {
+  color: #ffbb00;
 }
 
 .card {

@@ -1,14 +1,4 @@
 <%- include("partials/messages.ejs") %>
-<form action="/" method="GET">
-  <select name="selectSearch" id="selectSearch">
-    <option value="title">Title</option>
-    <option value="author">Author</option>
-  </select>
-  <input type="text" name="search" placeholder="Search post..." />
-  <button type="submit">
-    <i class="fa fa-search" aria-hidden="true"></i>
-  </button>
-</form>
 <a href="" id="advSearch">
   Advance Search
   <i class="fa fa-search-plus" aria-hidden="true"></i>
@@ -30,33 +20,31 @@
   </form>
 </div>
 
-<div>
-  <h1>Posts</h1>
-  <% posts.sort((a, b) => b.date - a.date) %> <% posts.forEach(post => { %> <% users.forEach(u => {
-  %> <% if (post.author == u._id) { %>
-  <ul>
-    <li>
+<h1>Posts</h1>
+<% posts.sort((a, b) => b.date - a.date) %> <% posts.forEach(post => { %> <% users.forEach(u => { %>
+<% if (post.author == u._id) { %>
+<ul>
+  <li>
+    <div>
+      <h2>
+        <a href="<%= `/post/${post._id}` %> "> <%= post.title %> </a>
+      </h2>
+      <p><%= post.date.toISOString().split('T')[0] %></p>
       <div>
-        <h2>
-          <a href="<%= `/post/${post._id}` %> "> <%= post.title %> </a>
-        </h2>
-        <p><%= post.date.toISOString().split('T')[0] %></p>
-        <div>
-          <p>
-            <%= post.content %>
-          </p>
-        </div>
-        <div>
-          <img src="<%= post.imageSrc %>" alt="" />
-        </div>
-        <div>
-          <%= u.name %>
-        </div>
+        <p>
+          <%= post.content %>
+        </p>
       </div>
-    </li>
-  </ul>
-  <% } %> <% }); %><% }); %>
-</div>
+      <div>
+        <img src="<%= post.imageSrc %>" alt="" />
+      </div>
+      <div>
+        <%= u.name %>
+      </div>
+    </div>
+  </li>
+</ul>
+<% } %> <% }); %><% }); %>
 
 <script type="text/javascript">
   document.getElementById("advSearch").addEventListener("click", (e) => {
