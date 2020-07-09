@@ -13,7 +13,7 @@ const app = express();
 
 require("./config/passport")(passport);
 
-// DB setup
+// DB setup for heroku
 mongoose.connect(process.env.URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -24,6 +24,7 @@ const db = mongoose.connection;
 db.on("error", (error) => console.error(error));
 db.once("open", () => console.log("connected to DB"));
 
+// DB for local testing w/o heroku
 // const db = require("./config/keys").dbURL;
 // mongoose
 //   .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })

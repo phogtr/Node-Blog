@@ -31,9 +31,9 @@ router.post("/new", upload.single("image"), (req, res) => {
     errors.push({ msg: "Please fill in the title" });
   }
 
-  if (fileName == null) {
-    errors.push({ msg: "Please attach an image" });
-  }
+  // if (fileName == null) {
+  //   errors.push({ msg: "Please attach an image" });
+  // }
 
   if (errors.length > 0) {
     if (fileName != null) {
@@ -98,16 +98,16 @@ router.get("/edit/:id", authenticated, (req, res) => {
 // edit post handler
 router.post("/edit/:id", upload.single("image"), (req, res) => {
   const fileName = req.file != null ? req.file.filename : null;
-  const { title, content, image, author } = req.body;
+  const { title, content, image } = req.body;
   let errors = [];
 
   if (!title) {
     errors.push({ msg: "Please fill in the title" });
   }
 
-  if (fileName == null) {
-    errors.push({ msg: "Please attach an image" });
-  }
+  // if (fileName == null) {
+  //   errors.push({ msg: "Please attach an image" });
+  // }
 
   if (errors.length > 0) {
     if (fileName != null) {
@@ -129,9 +129,11 @@ router.post("/edit/:id", upload.single("image"), (req, res) => {
   } else {
     Post.findById(req.params.id, (err, posts) => {
       if (err) throw err;
-      fs.unlink(path.join("public", Post.imagePath, posts.image), (err) => {
-        if (err) throw err;
-      });
+      if (posts.image != null) {
+        fs.unlink(path.join("public", Post.imagePath, posts.image), (err) => {
+          if (err) throw err;
+        });
+      }
     });
 
     var post = {};
@@ -155,9 +157,11 @@ router.delete("/:id", (req, res) => {
 
   Post.findById(req.params.id, (err, posts) => {
     if (err) throw err;
-    fs.unlink(path.join("public", Post.imagePath, posts.image), (err) => {
-      if (err) throw err;
-    });
+    if (posts.image != null) {
+      fs.unlink(path.join("public", Post.imagePath, posts.image), (err) => {
+        if (err) throw err;
+      });
+    }
   });
   Post.deleteOne({ _id: req.params.id }, (err) => {
     if (err) throw err;

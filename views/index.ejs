@@ -12,7 +12,9 @@
       <%= post.content %>
     </div>
     <div>
-      <img src="<%= post.imageSrc %>" class="img-fluid shadow-sm p-3 mb-3 mt-3 bg-white rounded" />
+      <% if (post.image != null) { %>
+        <img src="<%= post.imageSrc %>" class="img-fluid shadow-sm p-3 mb-3 mt-3 bg-white rounded" />
+      <% } %>
     </div>
   </div>
   <div class="card-footer text-muted">
