@@ -46,7 +46,7 @@ router.post("/new", upload.single("image"), (req, res) => {
       title,
       content,
       image,
-      user: req.user._id,
+      user: req.user,
     });
   } else {
     const newPost = new Post({
@@ -123,7 +123,7 @@ router.post("/edit/:id", upload.single("image"), (req, res) => {
         content,
         image,
         posts: posts,
-        user: req.user._id,
+        user: req.user,
       });
     });
   } else {
