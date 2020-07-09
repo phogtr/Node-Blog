@@ -14,21 +14,21 @@ const app = express();
 require("./config/passport")(passport);
 
 // DB setup
-// mongoose.connect(process.env.URL, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true
-// });
+mongoose.connect(process.env.URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
-// // connect DB
-// const db = mongoose.connection;
-// db.on("error", error => console.error(error));
-// db.once("open", () => console.log("connected to DB"));
+// connect DB
+const db = mongoose.connection;
+db.on("error", (error) => console.error(error));
+db.once("open", () => console.log("connected to DB"));
 
-const db = require("./config/keys").dbURL;
-mongoose
-  .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("Connected to DB"))
-  .catch((err) => console.log(err));
+// const db = require("./config/keys").dbURL;
+// mongoose
+//   .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+//   .then(() => console.log("Connected to DB"))
+//   .catch((err) => console.log(err));
 
 // EJS
 app.use(expressLayouts);
