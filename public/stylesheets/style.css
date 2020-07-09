@@ -1,15 +1,11 @@
 body {
   font-family: Georgia, Times New Roman, Times, serif;
   font-size: 20px;
-}
-
-.container {
   background-color: rgb(206, 235, 235);
 }
 
-[class*="col-"] {
-  height: 4.2rem;
-  border: 2px solid orange;
+a:hover {
+  text-decoration: none;
 }
 
 i {
@@ -36,19 +32,41 @@ i {
   margin: 1rem 0;
 }
 
+.adv-search-btn {
+  margin: 0 0;
+}
+
+div.options {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-option {
+  margin: 0 1rem;
+}
+
 /* nav */
 nav,
 .card-header {
   background-color: rgb(78, 88, 98);
 }
 
+.navbar {
+  margin-bottom: 10px;
+}
+
 .nav-link,
-.btn-link {
+.btn-link,
+span.username,
+.card-title,
+.guidelines-title,
+.post-title {
   color: #ffbb00;
 }
 
 .nav-link:hover,
-.btn-link:hover {
+.btn-link:hover,
+.card-title:hover {
   color: rgb(253, 255, 255);
 }
 
@@ -70,22 +88,34 @@ a.dropdown-toggle:hover {
   color: rgb(253, 255, 255);
 }
 
-span.username {
-  color: #ffbb00;
+/* card for post/form */
+.card-margin {
+  margin: 1rem 0;
+}
+.sidecard-margin {
+  margin-top: 1.5rem;
 }
 
-/* card for post/form */
-.card {
-  margin: 1rem 0;
+.sidecard-txt {
+  font-size: 1em;
 }
 
 .by-user {
   float: right;
 }
 
+.col-form-label {
+  font-size: 17px;
+}
+
+.card-title,
+.post-title {
+  font-size: 25px;
+}
+
 /* login */
 
-.login-line {
+.card-line {
   padding-bottom: 1rem;
 }
 
@@ -93,6 +123,11 @@ span.username {
   padding: 1rem;
 }
 
-form.single-post {
-  display: inline-block;
-}
+/* .container {
+  background-color: rgb(206, 235, 235);
+} */
+
+/* [class*="col-"] {
+  height: 4.2rem;
+  border: 2px solid orange;
+} */

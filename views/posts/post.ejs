@@ -1,25 +1,67 @@
-<h1><%= posts.title %></h1>
-<p><%= posts.date.toISOString().split('T')[0] %></p>
-<div>
-  <p><%= posts.content %></p>
+<div class="card card-margin">
+  <div class="card-header">
+    <div class="mb-0">
+      <h1 class="post-title"><%= posts.title %></h1>
+    </div>
+  </div>
+  <div class="card-body">
+    <div>
+      <p><%= posts.content %></p>
+    </div>
+    <div>
+      <img src="<%= posts.imageSrc %>" class="img-fluid shadow-sm p-3 mb-3 mt-3 bg-white rounded" />
+    </div>
+  </div>
+  <div class="card-footer text-muted">
+    <span
+      ><i class="fa fa-clock-o" aria-hidden="true"></i> <%= posts.date.toISOString().split('T')[0]
+      %>
+    </span>
+    <span class="by-user"
+      ><i class="fa fa-user-o" aria-hidden="true"></i> <%= author.charAt(0).toUpperCase() +
+      author.slice(1) %></span
+    >
+  </div>
 </div>
-<div>
-  <img src="<%= posts.imageSrc %>" alt="" />
 </div>
-<div>
-  <%= author %>
+
+<div class="col-lg-4">
+  <div class="card card-margin">
+    <div class="card-header">
+      <div class="mb-0">
+        <h4 class="guidelines-title">
+          <% if (user) { %>
+            Options <i class="fa fa-cog" aria-hidden="true"></i>
+          <% } else { %>
+            Guidelines <i class="fa fa-info" aria-hidden="true"></i>
+          <% } %> 
+        </h4>
+      </div>
+    </div>
+    <% if (user) { %> <% if (user._id == posts.author) { %>
+    <div class="card-body">
+      <div class="options">
+        <form action="<%= `edit/${posts._id}` %>" method="GET">
+          <button type="submit" class="btn btn-outline-info btn-lg btn-option">
+            Edit
+          </button>
+        </form>
+        <form id="delete-post">
+          <button type="submit" class="btn btn-outline-danger btn-lg btn-option" data-id="<%= posts._id %> ">
+            Delete
+          </button>
+        </form>
+      </div>
+      <% } %> <% } else { %>
+        <div class="card-body">
+          <div>
+            Sign in to edit or delete your post
+          </div>
+        </div>
+      <% } %> 
+    </div>
+  </div>
 </div>
-<% if (user) { %> <% if (user._id == posts.author) { %>
-<form class="single-post" action="<%= `edit/${posts._id}` %>" method="GET">
-  <button type="submit" class="btn btn-outline-info btn-lg">
-    Edit
-  </button>
-</form>
-<form class="single-post" id="delete-post">
-  <button type="submit" class="btn btn-outline-info btn-lg" data-id="<%= posts._id %> ">
-    Delete
-  </button>
-</form>
-<% } %> <% } %>
+</div>
 
 <script src="/js/delete.js"></script>

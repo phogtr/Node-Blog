@@ -1,9 +1,11 @@
 <%- include("partials/messages.ejs") %>
 <% posts.sort((a, b) => b.date - a.date) %> <% posts.forEach(post => { %> <% users.forEach(u => { %>
 <% if (post.author == u._id) { %>
-<div class="card">
+<div class="card card-margin">
   <div class="card-header">
-    <a href="<%= `/post/${post._id}` %> "> <%= post.title %> </a>
+    <div class="mb-0">
+      <a class="card-title" href="<%= `/post/${post._id}` %> "> <%= post.title %> </a>
+    </div>
   </div>
   <div class="card-body">
     <div>
@@ -28,11 +30,11 @@
 </div>
 <div class="col-lg-4">
   <div class="accordion" id="accordionSearch">
-    <div class="card">
+    <div class="card card-margin">
       <div class="card-header">
         <div class="mb-0">
           <button 
-          class="btn btn-link text-left" 
+          class="btn btn-link text-left sidecard-txt" 
           type="button" 
           data-toggle="collapse" 
           data-target="#collapseSearch" 
@@ -48,16 +50,21 @@
         <div class="card-body">
           <div>
             <h3>Advance Search</h3>
+            <hr class="card-line" />
             <form action="/advanceSearch" method="GET">
-              <div>
-                <label for="title">Title</label>
-                <input type="text" name="title" id="title" />
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="title">Title</label>
+                <div class="col-sm-9">
+                  <input class="form-control" type="text" name="title" id="title" />
+                </div>
               </div>
-              <div>
-                <label for="author">Author</label>
-                <input type="text" name="author" id="author" />
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="author">Author</label>
+                <div class="col-sm-9">
+                  <input class="form-control" type="text" name="author" id="author" />
+                </div>
               </div>
-              <button type="submit" class="btn btn-outline-info btn-lg">
+              <button type="submit" class="btn btn-outline-info btn-lg adv-search-btn">
                 Search
               </button>
             </form>

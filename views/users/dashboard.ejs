@@ -1,28 +1,78 @@
-<h1>Hello World</h1>
-<p>Welcome <%= users.name %></p>
-<form action="dashboard" method="GET">
-  <input type="text" name="title" placeholder="Search post..." value="<%= search.title %>" />
-  <button type="submit">Search</button>
-</form>
 <% posts.sort((a, b) => b.date - a.date) %> <% posts.forEach(post => { %> <% if (post.author ==
 users._id) { %>
-<ul>
-  <li>
-    <h2>
-      <a href="<%= `/post/${post._id}` %> "> <%= post.title %> </a>
-    </h2>
-    <p><%= post.date.toISOString().split('T')[0] %></p>
+<div class="card card-margin">
+  <div class="card-header">
+    <div class="mb-0">
+      <a class="card-title" href="<%= `/post/${post._id}` %> "> <%= post.title %> </a>
+    </div>
+  </div>
+  <div class="card-body">
     <div>
-      <p>
-        <%= post.content %>
-      </p>
+      <%= post.content %>
     </div>
     <div>
-      <img src="<%= post.imageSrc %>" alt="" />
+      <img src="<%= post.imageSrc %>" class="img-fluid shadow-sm p-3 mb-3 mt-3 bg-white rounded" />
     </div>
-    <div>
-      <%= users.name %>
-    </div>
-  </li>
-</ul>
+  </div>
+  <div class="card-footer text-muted">
+    <span
+      ><i class="fa fa-clock-o" aria-hidden="true"></i> <%= post.date.toISOString().split('T')[0] %>
+    </span>
+    <span class="by-user"
+      ><i class="fa fa-user-o" aria-hidden="true"></i> <%= users.name.charAt(0).toUpperCase() +
+      users.name.slice(1) %></span
+    >
+  </div>
+</div>
 <% } %> <% }) %>
+
+</div>
+<div class="col-lg-4">
+  <div class="accordion" id="accordionSearch">
+    <div class="card sidecard-margin">
+      <div class="card-header">
+        <div class="mb-0">
+          <button
+            class="btn btn-link text-left sidecard-txt"
+            type="button"
+            data-toggle="collapse"
+            data-target="#collapseOne"
+            aria-expanded="false"
+            aria-controls="collapseOne">
+            Guideline
+            <i class="fa fa-info" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+      <div id="collapseOne" class="collapse" data-parent="#accordionSearch">
+        <div class="card-body">
+          Look for the title of your post using the search below
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="mb-0">
+          <button
+            class="btn btn-link text-left sidecard-txt"
+            type="button"
+            data-toggle="collapse"
+            data-target="#collapseTwo"
+            aria-expanded="false"
+            aria-controls="collapseTwo">
+            Search
+            <i class="fa fa-search-plus" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+      <div id="collapseTwo" class="collapse" data-parent="#accordionSearch">
+        <div class="card-body">
+          <form action="dashboard" method="GET">
+            <input class="form-control" type="text" name="title" placeholder="Search title..." value="<%= search.title %>" />
+            <button type="submit" class="btn btn-outline-info btn-lg">Search</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
