@@ -6,6 +6,16 @@ The entire project is done by using MongoDB, Express, and Node.js.
 
 ---
 
+![overall page](/public/uploads/readme-image/image0.JPG)
+
+![overall page](/public/uploads/readme-image/image1.JPG)
+
+![overall page](/public/uploads/readme-image/image2.JPG)
+
+![overall page](/public/uploads/readme-image/image3.JPG)
+
+---
+
 ## Features
 
 - **User Authentication**: When registered, user's password is hashed then stored in the database (which means the actual password does not appear in the database). When login, using _local strategy_, which decrypts the password, making sure the email and password are corrected then allow user to sign-in. (./config/passport.js for the details)
@@ -63,3 +73,5 @@ The entire project is done by using MongoDB, Express, and Node.js.
 - Implement a forgot password.
 - Implement a remember me.
 - Pagination.
+- Find a way to store the image file to the database instead of in a file system.
+- Deploy the app to heroku.
